@@ -9,7 +9,6 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import LockIcon from '@mui/icons-material/Lock';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -31,7 +30,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function LoginTest() {
+export default function LoginForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -118,7 +117,7 @@ export default function LoginTest() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2" color='#00738E'>
+                  <Link href="/register" variant="body2" color='#00738E'>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
