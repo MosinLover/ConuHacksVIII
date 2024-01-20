@@ -1,0 +1,57 @@
+body {
+  font-family: 'arial';
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 { 
+  font-size: 3rem;
+  padding-bottom: 10px;
+}
+
+
+button {
+  font-size: 1.5em;
+  font-weight: bold;
+  background-color: #00738E;
+  padding: 12px 18px 12px 18px;
+  border-radius: 10px;
+  color: white;
+  margin-top: 2em;
+  margin-right: auto;
+}
+
+.row { 
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  max-width: 1200px;
+  margin: auto;
+
+}
+
+.column1, .column2 {
+  padding: 3em;
+}
+
+.column1 {
+  padding-top: 5em;
+  padding-left: 5em;
+}
+
+.column1 p {
+  font-size: 1.3em;
+  padding-bottom: 1em;
+}
+
+.img-container { 
+  height: 410px;
+  width: 400px;
+}
+
+img { 
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

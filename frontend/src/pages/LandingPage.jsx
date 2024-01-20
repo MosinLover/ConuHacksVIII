@@ -1,22 +1,51 @@
+import "./landingpage.css"
+import gojo from "../assets/gojo-pose.webp"
+import heroImage from "../assets/hero.webp"
+
 const LandingPage = () => { 
+
+  const headerStyle = {
+    color: 'black',
+    backgroundColor: '#EAAB00',
+    padding: '50px',
+    paddingTop: '80px',
+    fontFamily: 'Arial',
+    fontSize: '25px',
+    textAlign: 'center',
+    lineHeight: '1.2',
+    }
+
   return (
     <div>
-      <title>InfluenSmart: Your Personal Finance Compass</title>
+      <header style={headerStyle}>
+        <h1>InfluenSmart</h1>
+        <p>Your Personal Finance Compass</p>
+      </header>
 
-      <body>
-        <h2>
-          Conquer your finances
-        </h2>
-        <p>
-          Receive personalized advice for your important financial decisions.
-        </p>
-        <button>
+      <div className="row">
+        <div className="column1">
+          <h2>
+            Conquer your finances
+          </h2>
+          <p>
+            Receive personalized advice for your important financial decisions.
+          </p>
+
+        <button className="button">
           Get Started
         </button>
-      </body>
+
+        </div>
+        <div className="column2">
+          <div className="img-container">
+            <img src={heroImage} alt="Hero Image" />
+          </div>
+        </div>
+        
+      </div>
     </div>
   )
 }
 
-
 export default LandingPage;
+
