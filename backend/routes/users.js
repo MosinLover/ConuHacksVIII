@@ -17,6 +17,13 @@ router.get('/:id', (req, res) => {
 router.post('/', async (req, res) => {
     const {email, password, lastName, firstName} = req.body;
     try {
+        // Check if a user with the same email already exists
+        const existingUser = await User.findOne({ email });
+    
+        if (existingUser) {
+          // User with the same email already exists, handle accordingly
+          return res.status(400).json({ message: 'User with this email already exists.' });
+        }
         const user = await User.create({email, password, lastName, firstName})
         res.status(200).json(user)
     } catch (error) {

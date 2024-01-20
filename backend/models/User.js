@@ -6,6 +6,13 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
+        validate: {
+            validator: function (value) {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              return emailRegex.test(value);
+            },
+            message: 'Invalid email format',
+          },
     },
     password: {
         type: String, 
