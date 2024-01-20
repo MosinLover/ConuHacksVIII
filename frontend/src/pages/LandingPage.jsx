@@ -28,7 +28,7 @@ const LandingPage = () => {
             Conquer your finances
           </h2>
           <p>
-            Receive personalized advice for your important financial decisions.
+            Navigate through inflation with tailored financial advice and smart strategies.
           </p>
 
         <button className="button">
