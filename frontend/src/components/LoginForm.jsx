@@ -31,7 +31,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function LoginTest() {
+export default function LoginForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -118,7 +118,7 @@ export default function LoginTest() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2" color='#00738E'>
+                  <Link href="/register" variant="body2" color='#00738E'>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
