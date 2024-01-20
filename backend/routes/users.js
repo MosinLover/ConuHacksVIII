@@ -1,4 +1,5 @@
 const express = require('express')
+const User = require('../models/User')
 
 const router = express.Router()
 
@@ -13,8 +14,14 @@ router.get('/:id', (req, res) => {
 })
 
 // create a user
-router.post('/', (req, res) => {
-    res.json({msg: 'Post a user'})
+router.post('/', async (req, res) => {
+    const {email, password, lastName, firstName} = req.body;
+    try {
+        const user = await User.create({email, password, lastName, firstName})
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
 })
 
 module.exports = router
