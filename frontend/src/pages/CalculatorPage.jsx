@@ -1,5 +1,6 @@
 import React from 'react';
 import MortgageCalculatorComponent from '../components/MortgageCalculatorComponent';
+import { ChatBot } from '../components/ChatBot';
 import { Box } from '@mui/material';
 import './calculatorpage.css';
 
@@ -54,7 +55,7 @@ const CalculatorPage = ( {
         interestTermMonths={interestTermMonths}
         />
       </Box>
-
+      <ChatBot/>
     </div>
   );
 };

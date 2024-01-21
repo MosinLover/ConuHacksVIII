@@ -1,3 +1,4 @@
+import { ChatBot } from "../components/ChatBot"
 import { DashboardComponent } from "../components/DashboardComponent"
 import { Box } from "@mui/material"
 
@@ -5,6 +6,7 @@ export const DashboardPage = ( {monthlyPayment, principalData, principalWithInfl
     return (
         <Box marginTop={5} marginBottom={5} marginLeft={5} marginRight={5}>
             <DashboardComponent monthlyPayment={monthlyPayment} principalData={principalData} principalWithInflationData={principalWithInflationData} mortgageAmount={mortgageAmount} amortizationYears={amortizationYears} amortizationMonths={amortizationMonths} paymentFrequency={paymentFrequency} interestRate={interestRate} interestType={interestType} interestTermYears={interestTermYears} interestTermMonths={interestTermMonths}/>
+            <ChatBot/>
         </Box>
     )
 }
