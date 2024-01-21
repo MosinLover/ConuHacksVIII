@@ -23,6 +23,11 @@ button {
   margin-right: auto;
 }
 
+button:hover {
+  cursor: pointer;
+  background-color: #757ce8;
+}
+
 .row { 
   display: grid;
   grid-template-columns: 1.2fr 1fr;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -29,13 +30,34 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function RegisterForm() {
-    const handleSubmit = (event) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const user = {email, password, lastName, firstName};
+        const response = await fetch('/api/users', {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const json = await response.json();
+
+        if (!response.ok) {
+            console.log('not good')
+            alert(json.error)
+        }
+        if (response.ok) {
+            console.log('all good');
+            setEmail("");
+            setFirstName("");
+            setLastName("");
+            setPassword("");
+        }
     };
 
     return (
@@ -85,6 +107,8 @@ export default function RegisterForm() {
                                         fullWidth
                                         id="firstName"
                                         label="First Name"
+                                        onChange={(e) => setFirstName(e.target.value)}
+                                        value={firstName}
                                         autoFocus
                                     />
                                 </Grid>
@@ -95,6 +119,8 @@ export default function RegisterForm() {
                                         id="lastName"
                                         label="Last Name"
                                         name="lastName"
+                                        onChange={(e) => setLastName(e.target.value)}
+                                        value={lastName}
                                         autoComplete="family-name"
                                     />
                                 </Grid>
@@ -105,6 +131,8 @@ export default function RegisterForm() {
                                         id="email"
                                         label="Email Address"
                                         name="email"
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        value={email}
                                         autoComplete="email"
                                     />
                                 </Grid>
@@ -116,6 +144,8 @@ export default function RegisterForm() {
                                         label="Password"
                                         type="password"
                                         id="password"
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={password}
                                         autoComplete="new-password"
                                     />
                                 </Grid>
