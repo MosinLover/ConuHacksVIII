@@ -1,9 +1,46 @@
 import { Box, Grid, Button, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import { Line } from 'react-chartjs-2';
+import {CategoryScale} from 'chart.js'; 
+import { Chart as ChartJS } from 'chart.js/auto'
+import { Chart }            from 'react-chartjs-2'
+import { useEffect, useRef } from "react";
 
 export const DashboardComponent = ( {monthlyPayment, principalData, principalWithInflationData, mortgageAmount, amortizationYears, amortizationMonths, paymentFrequency, interestRate, interestType, interestTermYears, interestTermMonths}) => {
 
     const navigate = useNavigate();
+    
+    const chartRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if(chartRef.current){
+                chartRef.current.destroy();
+            }
+        };
+    },[]);
+
+    console.log("DATA" + principalWithInflationData[60])
+
+    const data = {
+        labels: Array.from({length: amortizationYears * 12 + amortizationMonths}, (_, i) => `Month ${i + 1}`),
+        datasets: [
+          {
+            label: 'Principal',
+            data: principalData,
+            borderColor: 'rgba(75,192,192,1)',
+            fill: false,
+          },
+          {
+            label: 'Principal With Inflation',
+            data: principalWithInflationData,
+            borderColor: 'rgba(255,99,132,1)',
+            fill: false,
+          }
+        ]
+      };
+
+
     return (
         <Grid container spacing={2} sx={{border: '0.5px solid black'}}>
             <Grid item xs={6} sx={{ bgcolor: '#00738E'}}>
@@ -28,6 +65,10 @@ export const DashboardComponent = ( {monthlyPayment, principalData, principalWit
                     {/* <Box mt={2}>Interest Cost for the term:</Box>
                     <Box mt={2}>Total Interest Cost:</Box> */}
                 </Box>
+            </Grid>
+            <Grid item xs = {12}>
+                <h2>Principal and principalData</h2>
+                <Line ref = {chartRef} data={data} />
             </Grid>
         </Grid>
     )
