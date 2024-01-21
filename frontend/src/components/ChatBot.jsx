@@ -2,11 +2,16 @@ import IconButton from '@mui/material/IconButton';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { useState } from 'react';
 import { Box, TextField, Typography } from '@mui/material';
+import { useRef, useEffect } from 'react';
 
 export const ChatBot = () => {
+    const defaultMsg = {
+        user: 'ai',
+        message: 'Dear User, We hope this message finds you well. At Influentsmart, we understand the importance of financial planning and the impact it has on your long-term goals. We are thrilled to inform you about our enhanced services designed to empower you in managing your finances effectively.',
+    }
     const [chat, toggleChat] = useState(false);
     const [textInput, setTextInput] = useState("");
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState([defaultMsg]);
     
     const sendMessage = async (message) => {
         await fetch('http://localhost:3000/api/users/message', {
@@ -47,11 +52,19 @@ export const ChatBot = () => {
         // setMessages([...messages, msgData]);
         sendMessage(tmp)
     }
+    const boxRef = useRef();
+    useEffect(() => {
+        if (boxRef.current && boxRef.current.scrollHeight) {
+            boxRef.current.scrollTop = boxRef.current.scrollHeight;
+        }
+        // boxRef.current.scrollTop = boxRef.current.scrollHeight;
+    }, [messages])
+
     return (
         <div>
             {chat && 
             <Box component="div" sx={{bgcolor: 'white', border: '1px solid gray', height: "380px", width: '250px', position: 'fixed', bottom: '80px', right: '22px', borderRadius: '5px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
-                <Box component="div" sx={{overflowY: 'auto'}}>
+                <Box ref={boxRef} component="div" sx={{overflowY: 'auto'}}>
                     {messages.map((x) => {
                         return <Box sx={{display: 'flex', marginLeft: (x.user == 'you' ? 'auto': '10px'), marginRight: (x.user !== 'you' ? 'auto': '10px'), bgcolor: (x.user == 'you' ? '#00738E': '#EAAB00'), marginTop: 0.5, marginBottom: 0.5, color: 'white',  width: '100px', borderRadius: '5px', overflowWrap: 'break-word', wordBreak:'break-word'}}>
                             <Typography variant='caption' sx={{margin: 1}}>
