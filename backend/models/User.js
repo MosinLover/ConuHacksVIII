@@ -25,7 +25,31 @@ const userSchema = new Schema({
     firstName: {
         type: String,
         required: true,
-    }
+    },
+    mortgage: {
+        type: Number,
+    },
+    amortizationYears: {
+        type: Number,
+    }, 
+    amortizationMonths: {
+        type: Number,
+    },
+    paymentFrequency: {
+        type: String,
+    },
+    interestRate: {
+        type: Number,
+    },
+    interestType: {
+        type: String,
+    },
+    interestTermYears: {
+        type: Number,
+    },
+    interestTermMonths: {
+        type: Number,
+    },
 }, {timestamps: true})
 
 module.exports = mongoose.model('User', userSchema)
