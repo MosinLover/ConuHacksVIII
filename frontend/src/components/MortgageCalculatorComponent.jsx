@@ -5,7 +5,7 @@ import { InputAdornment } from '@mui/material';
 import "./mortgageCalculatorComponent.css";
 import { useNavigate } from 'react-router-dom';
 
-const MortgageCalculatorComponent = ( {setMonthlyPayment} ) => {
+const MortgageCalculatorComponent = ( {setMonthlyPayment, setPrincipalData, setPrincipalWithInflationData} ) => {
   const [mortgageAmount, setMortgageAmount] = useState('');
   const [amortizationYears, setAmortizationYears] = useState(25);
   const [amortizationMonths, setAmortizationMonths] = useState(0);
@@ -14,6 +14,9 @@ const MortgageCalculatorComponent = ( {setMonthlyPayment} ) => {
   const [interestType, setInterestType] = useState('Fixed');
   const [interestTermYears, setInterestTermYears] = useState(5);
   const [interestTermMonths, setInterestTermMonths] = useState(0);
+
+  let principalData = [parseFloat(mortgageAmount)];
+  let principalWithInflationData = [parseFloat(mortgageAmount)];
 
   const navigate = useNavigate();
   const handleCalculate = () => {
@@ -25,58 +28,53 @@ const MortgageCalculatorComponent = ( {setMonthlyPayment} ) => {
     }
     const principal = parseFloat(mortgageAmount);
     const annualInterestRate = parseFloat(interestRate);
-    const totalAmortizationMonths = parseInt(amortizationYears, 10) * 12 + parseInt(amortizationMonths, 10);
-    const totalInterestTermMonths = parseInt(interestTermYears, 10) * 12 + parseInt(interestTermMonths, 10);
+    const freq = paymentFrequency === 'Monthly' ? 12 : paymentFrequency === 'Bi-Weekly' ? 26 : 52;
+    let calculatedInterestRate = Math.pow(( 1 + annualInterestRate/100), 1/freq) - 1;
 
-    let monthlyInterestRate = annualInterestRate / 100 / 12;
+    // console.log("calcultaed: " + calculatedInterestRate)
     let monthlyPayment;
 
-    if (interestType === 'Fixed') {
-      // For a fixed-rate mortgage
-      const numerator = monthlyInterestRate * Math.pow(1 + monthlyInterestRate, totalAmortizationMonths);
-      const denominator = Math.pow(1 + monthlyInterestRate, totalAmortizationMonths) - 1;
-      monthlyPayment = principal * numerator / denominator;
-    } else {
-      // For a variable-rate mortgage, we will assume the rate is fixed for the 'interest term' duration and then recalculate
-      // First, calculate the payment during the initial term
-      let initialTermPayment;
-      if (totalInterestTermMonths > 0) {
-        const initialTermNumerator = monthlyInterestRate * Math.pow(1 + monthlyInterestRate, totalInterestTermMonths);
-        const initialTermDenominator = Math.pow(1 + monthlyInterestRate, interestTermMonths) - 1;
-        initialTermPayment = principal * initialTermNumerator / initialTermDenominator;
-      } else {
-        // If no initial term is specified, treat it as a fixed-rate mortgage
-        initialTermPayment = principal * monthlyInterestRate / (1 - Math.pow(1 + monthlyInterestRate, -totalAmortizationMonths));
-      }
-      
-      // Assume the rate changes after the initial term
-      // Here you would include logic to adjust the rate based on your specific variable rate terms
-      // For simplicity, we are not adjusting the rate in this example
+    // For a fixed-rate mortgage
+    const numerator = 1 - Math.pow(1/(1+calculatedInterestRate), freq * parseInt(amortizationYears, 10));
+    const denominator = calculatedInterestRate;
+    monthlyPayment = principal / (numerator / denominator);
   
-      // Calculate the remaining balance after the initial term
-      const remainingBalance = principal * Math.pow(1 + monthlyInterestRate, interestTermMonths) - initialTermPayment * (Math.pow(1 + monthlyInterestRate, interestTermMonths) - 1) / monthlyInterestRate;
-  
-      // Recalculate the payment for the remaining term at the new rate
-      const remainingMonths = totalAmortizationMonths - interestTermMonths;
-      const remainingNumerator = monthlyInterestRate * Math.pow(1 + monthlyInterestRate, remainingMonths);
-      const remainingDenominator = Math.pow(1 + monthlyInterestRate, remainingMonths) - 1;
-      const remainingTermPayment = remainingBalance * remainingNumerator / remainingDenominator;
-  
-      monthlyPayment = interestTermMonths > 0 ? initialTermPayment : remainingTermPayment; // This assumes a payment change after the initial term
-    }
     setMonthlyPayment(monthlyPayment);
     console.log(`Monthly Payment: ${monthlyPayment.toFixed(2)}`);
     navigate('/dashboard');
+
+    for (let i = 0; i < freq * parseInt(amortizationYears, 10); i++) {
+      let presentValue = principalData[i];
+      let interestPayment = presentValue * (1 + calculatedInterestRate);
+      let principal = interestPayment - monthlyPayment;
+      principalData.push(principal); 
+    }
+
+    principalData.push(freq, amortizationYears, amortizationMonths)
+
+    for (let i = 0; i < freq * parseInt(amortizationYears, 10); i++) {
+      let presentValue = principalWithInflationData[i];
+      let interestPayment = presentValue * (1 + calculatedInterestRate - 0.03);
+      let principalWithInflation = interestPayment - monthlyPayment;
+      principalWithInflationData.push(principalWithInflation);
+    }
+
+    principalWithInflationData.push(freq, amortizationYears, amortizationMonths)
+
+    setPrincipalData(principalData);
+    setPrincipalWithInflationData(principalWithInflationData);
+
+    // console.log(principalWithInflationData);
+    // console.log(principalWithInflationData[300]);
+
   };
-  
 
   return (
-    <Container maxWidth="sm" sx={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', border: "3px solid black"  }}>
-      
-        <Typography variant="h4" gutterBottom>
-            Mortgage Payment Calculator
-        </Typography>
-        
+    <Container 
+      maxWidth="sm" 
+      sx={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#F3F3F3', borderRadius: '20px' 
+    }}>
+    <h3 style={{fontSize: '30px', marginBottom: '20px'}} > Mortgage Payment Calculator</h3>
         <Box 
           component="form" 
           onSubmit={handleCalculate} 
@@ -154,7 +152,7 @@ const MortgageCalculatorComponent = ( {setMonthlyPayment} ) => {
                       onChange={(e) => setPaymentFrequency(e.target.value)}
                       // label="Payment Frequency"
                   >
-                      {["Monthly", "Semi-Monthly", "Bi-Weekly", "Weekly"].map((frequency) => (
+                      {["Monthly", "Bi-Weekly", "Weekly"].map((frequency) => (
                           <MenuItem key={frequency} value={frequency}>
                               {frequency}
                           </MenuItem>
