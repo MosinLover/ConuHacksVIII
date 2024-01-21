@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -21,6 +22,7 @@ export default function RegisterForm() {
     const [password, setPassword] = useState('');
     const [lastName, setLastName] = useState('');
     const [firstName, setFirstName] = useState('');
+    const navigate = useNavigate();
     
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -44,6 +46,7 @@ export default function RegisterForm() {
             setFirstName("");
             setLastName("");
             setPassword("");
+            navigate('/login');
         }
     };
 
