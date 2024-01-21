@@ -1,13 +1,13 @@
 import { Box, Grid, Button, Typography } from "@mui/material"
 
-export const DashboardComponent = () => {
+export const DashboardComponent = ( {monthlyPayment}) => {
     return (
         <Grid container spacing={2} sx={{border: '0.5px solid black'}}>
             <Grid item xs={6} sx={{ bgcolor: '#00738E'}}>
                 <Box component='div' sx={{display:'flex', alignItems:'center', justifyContent:'center', height: '100vh', flexDirection: 'column'}}>
                     <Typography variant="h3" sx={{color: 'white'}}>
                         <Box sx={{textAlign: 'center'}}>
-                            Your Monthly Payment is ... 4000$
+                            Your Monthly Payment is {monthlyPayment.toFixed(2)}$
                         </Box>
                         </Typography>
                     <Box component='div' sx={{flexDirection: 'row'}}>
