@@ -9,6 +9,9 @@ router.post('/',UserController.createUser)
 // get all users
 router.get('/',UserController.getAllUsers)
 // get a single user
-router.get('/:id',UserController.getUser)
+router.get('/:email',UserController.getUser)
+// verify user
+router.post('/verify',UserController.verifyUser)
+
 
 module.exports = router

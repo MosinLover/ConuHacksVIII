@@ -31,12 +31,30 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function LoginForm() {
-  const handleSubmit = (event) => {
+  const [email, setEmail] = React.useState(''); 
+  const [password, setPassword] = React.useState('');
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const user = {email, password};
+    const response = await fetch(`/api/users/verify`, {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const json = await response.json();
+    if (!response.ok){
+      console.log('error');
+      // alert.log(json);
+    }else{
+      console.log('success');
+    }
+
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email,
+      password
     });
   };
 
@@ -85,6 +103,7 @@ export default function LoginForm() {
                 id="email"
                 label="Email Address"
                 name="email"
+                onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 autoFocus
               />
@@ -96,6 +115,7 @@ export default function LoginForm() {
                 label="Password"
                 type="password"
                 id="password"
+                onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
               />
               <FormControlLabel
