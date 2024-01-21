@@ -46,23 +46,23 @@ export const DashboardComponent = ( {monthlyPayment, principalData, principalWit
 
 
     return (
-        <Grid container spacing={2} sx={{border: '0.5px solid black'}}>
+        <Box container spacing={2} sx={{border: '0.5px solid black'}}>
             <Grid item xs={6} sx={{ bgcolor: '#00738E'}}>
-                <Box component='div' sx={{display:'flex', alignItems:'center', justifyContent:'center', height: '100vh', flexDirection: 'column'}}>
+                <Box component='div' sx={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection: 'column'}}>
                     <Typography variant="h3" sx={{color: 'white'}}>
-                        <Box sx={{textAlign: 'center'}}>
-                            Your Payment is {monthlyPayment.toFixed(2)}$
+                        <Box sx={{textAlign: 'center', padding: '20px'}}>
+                            Your {paymentFrequency} Payment is {monthlyPayment.toFixed(2)}$
                         </Box>
                         </Typography>
                     <Box component='div' sx={{flexDirection: 'row'}}>
-                        <Button variant='text' sx={{color: 'white'}} onClick={() => navigate('/calculator')}>Edit Details</Button>
+                        <Button variant='text' sx={{backgroundColor: 'black',color: 'white', marginBottom: '20px'}} onClick={() => navigate('/calculator')}>Edit Details</Button>
                         {/* <Button variant='text' sx={{color: 'white'}}>View Charts</Button> */}
                     </Box>
                 </Box>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} sx={{padding: '20px'}}>
                 <Typography variant="h4">Your Mortgage Details...</Typography>
-                <Box component='div' sx={{display: 'flex', height: '100vh', flexDirection: 'column'}}>
+                <Box component='div' sx={{display: 'flex', flexDirection: 'column'}}>
                     <Box mt={2}>Mortgage Amount: {mortgageAmount} $</Box>
                     <Box mt={2}>Interest Rate: {interestRate} %</Box>
                     <Box mt={2}>Amortization: {amortizationYears} Years and {amortizationMonths} Months</Box>
@@ -70,8 +70,8 @@ export const DashboardComponent = ( {monthlyPayment, principalData, principalWit
                     <Box mt={2}>Total Interest Cost:</Box> */}
                 </Box>
             </Grid>
-            <Grid item xs = {12}>
-                <h2>Effect of Inflation on Mortgage Payments</h2>
+            <Grid item xs = {12} sx={{padding: '20px'}}>
+                <h2 style={{textAlign: 'center'}}>Effect of Inflation on Mortgage Payments</h2>
                 <Line 
                 ref = {chartRef} 
                 data={data} 
@@ -79,6 +79,6 @@ export const DashboardComponent = ( {monthlyPayment, principalData, principalWit
                     scales: { y: { min: 0 }},
                     }}/>
             </Grid>
-        </Grid>
+        </Box>
     )
 }
