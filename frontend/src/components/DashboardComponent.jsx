@@ -21,9 +21,9 @@ export const DashboardComponent = ( {monthlyPayment, mortgageAmount, amortizatio
             <Grid item xs={6}>
                 <Typography variant="h4">Your Mortgage Details...</Typography>
                 <Box component='div' sx={{display: 'flex', height: '100vh', flexDirection: 'column'}}>
-                    <Box mt={2}>Mortgage Amount: {mortgageAmount}</Box>
-                    <Box mt={2}>Interest Rate: {interestRate}</Box>
-                    <Box mt={2}>Amortization: {amortizationYears} years and {amortizationMonths} months</Box>
+                    <Box mt={2}>Mortgage Amount: {mortgageAmount} $</Box>
+                    <Box mt={2}>Interest Rate: {interestRate} %</Box>
+                    <Box mt={2}>Amortization: {amortizationYears} Years and {amortizationMonths} Months</Box>
                     <Box mt={2}>Interest Cost for the term:</Box>
                     <Box mt={2}>Total Interest Cost:</Box>
                 </Box>
