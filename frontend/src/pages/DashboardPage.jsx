@@ -1,10 +1,10 @@
 import { DashboardComponent } from "../components/DashboardComponent"
 import { Box } from "@mui/material"
 
-export const DashboardPage = ( {monthlyPayment} ) => {
+export const DashboardPage = ( {monthlyPayment, mortgageAmount, amortizationYears, amortizationMonths, paymentFrequency, interestRate, interestType, interestTermYears, interestTermMonths} ) => {
     return (
         <Box marginTop={5} marginBottom={5} marginLeft={5} marginRight={5}>
-            <DashboardComponent monthlyPayment={monthlyPayment}/>
+            <DashboardComponent monthlyPayment={monthlyPayment} mortgageAmount={mortgageAmount} amortizationYears={amortizationYears} amortizationMonths={amortizationMonths} paymentFrequency={paymentFrequency} interestRate={interestRate} interestType={interestType} interestTermYears={interestTermYears} interestTermMonths={interestTermMonths}/>
         </Box>
     )
 }

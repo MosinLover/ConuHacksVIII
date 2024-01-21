@@ -5,15 +5,15 @@ import { InputAdornment } from '@mui/material';
 import "./mortgageCalculatorComponent.css";
 import { useNavigate } from 'react-router-dom';
 
-const MortgageCalculatorComponent = ( {setMonthlyPayment} ) => {
-  const [mortgageAmount, setMortgageAmount] = useState('');
-  const [amortizationYears, setAmortizationYears] = useState(25);
-  const [amortizationMonths, setAmortizationMonths] = useState(0);
-  const [paymentFrequency, setPaymentFrequency] = useState('Monthly');
-  const [interestRate, setInterestRate] = useState(5);
-  const [interestType, setInterestType] = useState('Fixed');
-  const [interestTermYears, setInterestTermYears] = useState(5);
-  const [interestTermMonths, setInterestTermMonths] = useState(0);
+const MortgageCalculatorComponent = ( {setMonthlyPayment, setMortgageAmount, setAmortizationYears, setAmortizationMonths, setPaymentFrequency, setInterestRate, setInterestType, setInterestTermYears, setInterestTermMonths, monthlyPayment, mortgageAmount, amortizationYears, amortizationMonths, paymentFrequency, interestRate, interestType, interestTermYears, interestTermMonths} ) => {
+  // const [mortgageAmount, setMortgageAmount] = useState('');
+  // const [amortizationYears, setAmortizationYears] = useState(25);
+  // const [amortizationMonths, setAmortizationMonths] = useState(0);
+  // const [paymentFrequency, setPaymentFrequency] = useState('Monthly');
+  // const [interestRate, setInterestRate] = useState(5);
+  // const [interestType, setInterestType] = useState('Fixed');
+  // const [interestTermYears, setInterestTermYears] = useState(5);
+  // const [interestTermMonths, setInterestTermMonths] = useState(0);
 
   const navigate = useNavigate();
   const handleCalculate = () => {
