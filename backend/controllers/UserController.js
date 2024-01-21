@@ -18,18 +18,33 @@ exports.createUser = async (req, res) => {
 }
 exports.getAllUsers = async (req, res) => {
     try {
-        const users = await User.find()
+        const users = await User.find({}).sort({createdAt: -1})
         res.status(200).json(users)
     } catch (error) {
         res.status(400).json({error: error.message})
     }
 }
 exports.getUser = async (req, res) => {
-    const {id} = req.params
     try {
-        const user = await User.findById(req.params.id)
+        const user = await User.findOne({email: req.params.email})
         res.status(200).json(user)
     } catch (error) {
         res.status(400).json({error: error.message})
+    }
+}
+
+exports.verifyUser = async (req, res) => {
+    try{
+        const {email, password} = req.body;
+
+        // Find user with requested email
+        const user = await User.findOne({ email });
+
+        if(!user || user.password !== password){
+            return res.status(400).json({ message: 'User does not exist.' });
+        }
+        res.json({success: true})
+    }catch(err){
+        res.status(400).json({error: err.message})
     }
 }
