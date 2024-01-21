@@ -15,10 +15,6 @@ function App() {
   const onSetMonthlyPayment = (payment) => {
     setMonthlyPayment(payment);
   }
-
-  useEffect(() => {
-    console.log(monthlyPayment);
-  }, [monthlyPayment])
   return (
     <BrowserRouter>
       <Routes>
