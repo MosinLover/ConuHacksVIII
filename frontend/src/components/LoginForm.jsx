@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import LockIcon from '@mui/icons-material/Lock';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -33,6 +34,7 @@ const defaultTheme = createTheme();
 export default function LoginForm() {
   const [email, setEmail] = React.useState(''); 
   const [password, setPassword] = React.useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -47,9 +49,10 @@ export default function LoginForm() {
     const json = await response.json();
     if (!response.ok){
       console.log('error');
-      // alert.log(json);
+      alert("Username or Password is invalid");
     }else{
       console.log('success');
+      navigate("/calculator")
     }
 
     console.log({
@@ -131,11 +134,6 @@ export default function LoginForm() {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2" color='#00738E'>
-                    Forgot password?
-                  </Link>
-                </Grid>
                 <Grid item>
                   <Link href="/register" variant="body2" color='#00738E'>
                     {"Don't have an account? Sign Up"}

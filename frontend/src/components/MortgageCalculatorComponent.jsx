@@ -20,10 +20,9 @@ const MortgageCalculatorComponent = ( {setMonthlyPayment} ) => {
     // event.preventDefault();
     // Ensure all the necessary fields are filled in
     if (!mortgageAmount || !interestRate) {
-      console.log('Please fill in all required fields.');
-      // return;
+      alert('Please fill in all required fields.');
+      return;
     }
-
     const principal = parseFloat(mortgageAmount);
     const annualInterestRate = parseFloat(interestRate);
     const totalAmortizationMonths = parseInt(amortizationYears, 10) * 12 + parseInt(amortizationMonths, 10);
