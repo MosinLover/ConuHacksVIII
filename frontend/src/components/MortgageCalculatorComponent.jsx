@@ -5,8 +5,7 @@ import { InputAdornment } from '@mui/material';
 import "./mortgageCalculatorComponent.css";
 import { useNavigate } from 'react-router-dom';
 
-const MortgageCalculator = ( {setMonthlyPayment} ) => {
-
+const MortgageCalculatorComponent = ( {setMonthlyPayment} ) => {
   const [mortgageAmount, setMortgageAmount] = useState('');
   const [amortizationYears, setAmortizationYears] = useState(25);
   const [amortizationMonths, setAmortizationMonths] = useState(0);
@@ -16,13 +15,13 @@ const MortgageCalculator = ( {setMonthlyPayment} ) => {
   const [interestTermYears, setInterestTermYears] = useState(5);
   const [interestTermMonths, setInterestTermMonths] = useState(0);
 
-  const handleCalculate = (event) => {
-    event.preventDefault();
-    
+  const navigate = useNavigate();
+  const handleCalculate = () => {
+    // event.preventDefault();
     // Ensure all the necessary fields are filled in
     if (!mortgageAmount || !interestRate) {
       console.log('Please fill in all required fields.');
-      return;
+      // return;
     }
 
     const principal = parseFloat(mortgageAmount);
@@ -68,6 +67,7 @@ const MortgageCalculator = ( {setMonthlyPayment} ) => {
     }
     setMonthlyPayment(monthlyPayment);
     console.log(`Monthly Payment: ${monthlyPayment.toFixed(2)}`);
+    navigate('/dashboard');
   };
   
 
@@ -264,4 +264,4 @@ const MortgageCalculator = ( {setMonthlyPayment} ) => {
   );
 };
 
-export default MortgageCalculator;
+export default MortgageCalculatorComponent;
