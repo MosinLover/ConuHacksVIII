@@ -52,7 +52,7 @@ const MortgageCalculatorComponent = ( {setMonthlyPayment, setPrincipalWithInflat
 
     principalData.push(freq, amortizationYears, amortizationMonths)
 
-    let nominalInterestRate = Math.pow(( 1 + (annualInterestRate - 0)/100), 1/freq) - 1;
+    let nominalInterestRate = Math.pow(( 1 + (annualInterestRate - 3)/100), 1/freq) - 1;
 
     for (let i = 0; i < freq * parseInt(amortizationYears, 10); i++) {
       let presentValue = principalWithInflationData[i];

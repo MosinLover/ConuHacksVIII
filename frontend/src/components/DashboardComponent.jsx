@@ -1,10 +1,12 @@
 import { Box, Grid, Button, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { Line } from 'react-chartjs-2';
-import {CategoryScale} from 'chart.js'; 
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart }            from 'react-chartjs-2'
+import {CategoryScale} from 'chart.js';
+import Chart from 'chart.js/auto';
 import { useEffect, useRef } from "react";
+
+
+Chart.register(CategoryScale);
 
 export const DashboardComponent = ( {monthlyPayment, principalData, principalWithInflationData, mortgageAmount, amortizationYears, amortizationMonths, paymentFrequency, interestRate, interestType, interestTermYears, interestTermMonths}) => {
 
@@ -30,12 +32,14 @@ export const DashboardComponent = ( {monthlyPayment, principalData, principalWit
             data: principalData,
             borderColor: 'rgba(75,192,192,1)',
             fill: false,
+            pointStyle: false,
           },
           {
             label: 'Principal With Inflation',
             data: principalWithInflationData,
             borderColor: 'rgba(255,99,132,1)',
             fill: false,
+            pointStyle: false,
           }
         ]
       };
@@ -67,8 +71,13 @@ export const DashboardComponent = ( {monthlyPayment, principalData, principalWit
                 </Box>
             </Grid>
             <Grid item xs = {12}>
-                <h2>Principal and principalData</h2>
-                <Line ref = {chartRef} data={data} />
+                <h2>Effect of Inflation on Mortgage Payments</h2>
+                <Line 
+                ref = {chartRef} 
+                data={data} 
+                options={{ 
+                    scales: { y: { min: 0 }},
+                    }}/>
             </Grid>
         </Grid>
     )
