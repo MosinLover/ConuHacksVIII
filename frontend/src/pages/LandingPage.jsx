@@ -1,9 +1,9 @@
 import "./landingpage.css"
 import gojo from "../assets/gojo-pose.webp"
 import heroImage from "../assets/hero.webp"
+import { Link } from "@mui/material"
 
 const LandingPage = () => { 
-
   const headerStyle = {
     color: 'black',
     backgroundColor: '#EAAB00',
@@ -31,8 +31,8 @@ const LandingPage = () => {
             Navigate through inflation with tailored financial advice and smart strategies.
           </p>
 
-        <button className="button">
-          Get Started
+        <button className="button" onClick={() => window.location.href = '/login'}>
+            Get Started
         </button>
 
         </div>
@@ -41,7 +41,6 @@ const LandingPage = () => {
             <img src={heroImage} alt="Hero Image" />
           </div>
         </div>
-        
       </div>
     </div>
   )
