@@ -125,7 +125,7 @@ export default function LoginForm() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, bgcolor: '#00738E' }}
+                sx={{ mt: 3, mb: 2, bgcolor: '#00738E', '&:hover':{background: '#000'} }}
               >
                 Sign In
               </Button>

@@ -7,6 +7,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
 import LandingPage from './pages/LandingPage';
 import MortgageCalculatorComponent from './components/MortgageCalculatorComponent';
+import CalculatorPage from './pages/CalculatorPage';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
   const [interestType, setInterestType] = useState('Fixed');
   const [interestTermYears, setInterestTermYears] = useState(5);
   const [interestTermMonths, setInterestTermMonths] = useState(0);
+  const [principalData, setPrincipalData] = useState([]);
+  const [principalWithInflationData, setPrincipalWithInflationData] = useState([]);
 
   const onSetMonthlyPayment = (payment) => {
     setMonthlyPayment(payment);
@@ -54,8 +57,8 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/calculator" element={<MortgageCalculatorComponent setMonthlyPayment={onSetMonthlyPayment} setMortgageAmount={onSetMortgageAmount} setAmortizationYears={onSetAmortizationYears} setAmortizationMonths={onSetArmotizationMonths} setPaymentFrequency={onSetPaymentFrequency} setInterestRate={onSetInterestRate} setInterestType={onSetInterestType} setInterestTermYears={onSetInterestTermYears} setInterestTermMonths={onSetInterestTermMonths} monthlyPayment={monthlyPayment} mortgageAmount={mortgageAmount} amortizationYears={amortizationYears} amortizationMonths={amortizationMonths} paymentFrequency={paymentFrequency} interestRate={interestRate} interestType={interestType} interestTermYears={interestTermYears} interestTermMonths={interestTermMonths} />} />
-        <Route path="/dashboard" element={<DashboardPage monthlyPayment={monthlyPayment} mortgageAmount={mortgageAmount} amortizationYears={amortizationYears} amortizationMonths={amortizationMonths} paymentFrequency={paymentFrequency} interestRate={interestRate} interestType={interestType} interestTermYears={interestTermYears} interestTermMonths={interestTermMonths} />} />
+        <Route path="/calculator" element={<CalculatorPage setPrincipalData={setPrincipalData} setPrincipalWithInflationData={setPrincipalWithInflationData} setMonthlyPayment={onSetMonthlyPayment} setMortgageAmount={onSetMortgageAmount} setAmortizationYears={onSetAmortizationYears} setAmortizationMonths={onSetArmotizationMonths} setPaymentFrequency={onSetPaymentFrequency} setInterestRate={onSetInterestRate} setInterestType={onSetInterestType} setInterestTermYears={onSetInterestTermYears} setInterestTermMonths={onSetInterestTermMonths} monthlyPayment={monthlyPayment} mortgageAmount={mortgageAmount} amortizationYears={amortizationYears} amortizationMonths={amortizationMonths} paymentFrequency={paymentFrequency} interestRate={interestRate} interestType={interestType} interestTermYears={interestTermYears} interestTermMonths={interestTermMonths}  />} />
+        <Route path="/dashboard" element={<DashboardPage principalData={principalData} principalWithInflationData={principalWithInflationData} monthlyPayment={monthlyPayment} mortgageAmount={mortgageAmount} amortizationYears={amortizationYears} amortizationMonths={amortizationMonths} paymentFrequency={paymentFrequency} interestRate={interestRate} interestType={interestType} interestTermYears={interestTermYears} interestTermMonths={interestTermMonths} />} />
       </Routes>
   </BrowserRouter>
   );
